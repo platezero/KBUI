@@ -3,13 +3,23 @@
     <layout-header/>
     <v-content>
       <main-search-bar/>
-      <v-container fluid style="background-color:white;">
-        <main-category-list/>
-        <main-trending-article-list/>
+      <v-container fluid grid-list-md px-1 m style="background-color:white;">
+        <v-layout align-start row wrap justify-center>
+          <v-flex xs12 md5>
+            <main-article-list :header="'บทความปักหมุด'" :type="'PIN'"/>
+          </v-flex>
+          <!-- <v-flex xs4>
+            <main-article-list :header="'Trending Article'" :type="'TREND'"/>
+          </v-flex>-->
+          <v-flex xs12 md5>
+            <main-article-list :header="'บทความล่าสุด'" :type="'LASTED'"/>
+          </v-flex>
+        </v-layout>
+        <!-- <main-category-list/> -->
       </v-container>
     </v-content>
     <layout-footer/>
-<!--<router-view></router-view>-->
+    <!--<router-view></router-view>-->
   </v-app>
 </template>
 
@@ -18,7 +28,7 @@ import LayoutHeader from "@/components/LayoutHeader";
 import LayoutFooter from "@/components/LayoutFooter";
 import MainSearchBar from "@/components/MainSearchBar";
 import MainCategoryList from "@/components/MainCategoryList";
-import MainTrendingArticleList from "@/components/MainTrendingArticleList";
+import MainArticleList from "@/components/MainArticleList";
 
 export default {
   name: "App",
@@ -27,7 +37,7 @@ export default {
     LayoutFooter,
     MainSearchBar,
     MainCategoryList,
-    MainTrendingArticleList
+    MainArticleList
   },
   data() {
     return {

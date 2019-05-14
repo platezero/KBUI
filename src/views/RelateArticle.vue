@@ -38,30 +38,32 @@
 </template>
 
 <script>
+import ServiceApi from "@/services/ServiceApi";
+
 export default {
   data() {
     return {
       isShow: false,
       items: [
-        { header: "หัวข้อที่เกี่ยวข้อง" },
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-          title: "1. ไม่สามารถบันทึกรับชำระได้",
-          subtitle: "- ภูมิภัทร สุขภิมนตรี",
-          url: "https://www.w3schools.com"
-        },
-        { divider: true, inset: true },
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-          title: "2. วิธีใช้งาน Quick Assistant",
-          subtitle: "- บัณฑิต พุทธศรี"
-        },
-        { divider: true, inset: true },
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          title: "3. วิธีติดตั้ง SAP GUI Connection",
-          subtitle: "- ขรินทร์ธร บุญทัน"
-        }
+        { header: "หัวข้อที่เกี่ยวข้อง" }
+        // {
+        //   avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+        //   title: "1. ไม่สามารถบันทึกรับชำระได้",
+        //   subtitle: "- ภูมิภัทร สุขภิมนตรี",
+        //   url: "https://www.w3schools.com"
+        // },
+        // { divider: true, inset: true },
+        // {
+        //   avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
+        //   title: "2. วิธีใช้งาน Quick Assistant",
+        //   subtitle: "- บัณฑิต พุทธศรี"
+        // },
+        // { divider: true, inset: true },
+        // {
+        //   avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+        //   title: "3. วิธีติดตั้ง SAP GUI Connection",
+        //   subtitle: "- ขรินทร์ธร บุญทัน"
+        // }
       ]
     };
   },
@@ -69,6 +71,35 @@ export default {
     openUrl: function(url) {
       window.open(url, "_blank");
     }
+  },
+  mounted() {
+    var note = this.$route.params.note;
+    ServiceApi.listArticleByNote(note).then(response => {
+      var runningNo = 0;
+      response.data.data.forEach(element => {
+        runningNo += 1;
+        var empid = element.usercreate.split(" : ")[0];
+        var note = element.note;
+        var title = runningNo + ". " + element.title;
+        var userCreate = element.usercreate.split(" : ")[1];
+        var avatarUrl =
+          "http://172.20.1.58/SecurityManager/images/employees/" +
+          empid.substr(1, 2) +
+          "/" +
+          empid +
+          ".jpg";
+        var BASE_URL = process.env.VUE_APP_API_KB_ENDPOINT;
+        var url = BASE_URL + "/#/article/" + note;
+
+        this.items.push({
+          note: note,
+          avatar: avatarUrl,
+          title: title,
+          subtitle: "@" + userCreate,
+          url: url
+        });
+      });
+    });
   }
 };
 </script>

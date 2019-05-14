@@ -16,19 +16,29 @@ export default new Router({
       component: () => import("./views/About.vue")
     },
     {
-      path: "/article/relate/:kmnote",
+      path: "/article/relate/:note",
       name: "article_relate",
       component: () => import("./views/RelateArticle.vue")
     },
     {
-      path: "/article/:kmnote",
+      path: "/article/:note/:mode",
       name: "article_view",
       component: () => import("./views/Article.vue")
     },
     {
-      path: "/article",
-      name: "article_create",
+      path: "/article/create",
+      name: "article_view",
       component: () => import("./views/Article.vue")
+    },
+    {
+      path: "/article/:note",
+      name: "article_create",
+      component: () => import("./views/ArticleRead.vue")
+    },
+    {
+      path: "/myarticle",
+      name: "my_article",
+      component: () => import("./views/MyArticle.vue")
     },
     {
       path: "/quill",
@@ -39,6 +49,11 @@ export default new Router({
       path: "/login",
       name: "login",
       component: () => import("./views/Login.vue")
+    },
+    {
+      path: "/logout",
+      name: "logout",
+      component: () => import("./views/Logout.vue")
     }
   ]
 });
