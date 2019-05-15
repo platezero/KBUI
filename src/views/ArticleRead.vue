@@ -7,18 +7,20 @@
           <v-flex class="mt-3 mb-3" xs12 md9>
             <div class="display-1">{{ article.jodit.title }}</div>
           </v-flex>
-          <v-flex class="mb-4" xs12 md9>
+          <v-flex v-if="this.article.jodit.usercreate" class="mb-4" xs12 md9>
             <v-layout align-center justify-start row fill-height>
               <v-avatar class="mr-2">
                 <img
-                  src="https://cdn-images-1.medium.com/fit/c/100/100/1*gI3P989qNfbrg2hfUKFw_Q.jpeg"
-                  alt="John"
+                  :src="'http://172.20.1.58/SecurityManager/images/employees/' 
+                  +this.article.jodit.usercreate.split(' : ')[0].substr(1, 2) + '/' + this.article.jodit.usercreate.split(' : ')[0] +'.jpg'"
                 >
               </v-avatar>
               <v-flex xs11>
                 <v-layout align-start justify-center column fill-height>
                   <v-flex xs6 mb-0 pb-0>
-                    <div class="font-weight-medium body-2">{{ article.jodit.usercreate }}</div>
+                    <div
+                      class="font-weight-medium body-2"
+                    >{{ article.jodit.usercreate | splitempname }}</div>
                   </v-flex>
                   <v-flex xs6 mt-0 pt-0>
                     <div class="grey--text text--darken-2">
@@ -32,14 +34,14 @@
             </v-layout>
           </v-flex>
           <v-flex xs12 md9 v-if="article.jodit.symtom.trim()!= ''">
-            <div class="headline text-lg-left mb-2">ปัญหา/อาการ</div>
+            <div class="title text-lg-left mb-2">ปัญหา/อาการ</div>
             <v-divider></v-divider>
           </v-flex>
           <v-flex xs12 md9 class="mb-4" v-if="article.jodit.symtom.trim()!= ''">
             <div v-html="article.jodit.symtom"></div>
           </v-flex>
           <v-flex xs12 md9 v-if="article.jodit.purpose.trim()!= ''">
-            <div class="headline text-lg-left mb-2">จุดประสงค์</div>
+            <div class="title text-lg-left mb-2">จุดประสงค์</div>
             <v-divider></v-divider>
           </v-flex>
           <v-flex xs12 md9 class="mb-4" v-if="article.jodit.purpose.trim()!= ''">
@@ -158,7 +160,16 @@ export default {
       });
   },
   watch: {},
-  components: { LayoutFooterFeedback }
+  components: { LayoutFooterFeedback },
+  computed: {},
+  filters: {
+    splitempid: function(value) {
+      return value.split(" : ")[0];
+    },
+    splitempname: function(value) {
+      return value.split(" : ")[1];
+    }
+  }
 };
 </script>
 
