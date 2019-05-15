@@ -5,7 +5,6 @@
         v-if="item.header"
         :key="index+'-label'"
         class="subheading"
-        style="color: rgba(0,0,0,0.70); background-color: #f3f3f3;"
       >{{ header }}</v-subheader>
 
       <v-divider v-else-if="item.divider" :inset="item.inset" :key="index"></v-divider>

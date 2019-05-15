@@ -16,13 +16,19 @@
             </td>
             <td class="text-xs-left">{{ props.item.title }}</td>
             <td class="text-xs-center">{{ props.item.views }}</td>
+            <td class="text-xs-center">
+              <v-icon small>thumb_up</v-icon>
+              {{ props.item.commentuseful }} |
+              <v-icon small>thumb_down</v-icon>
+              {{ props.item.commentuseless }}
+            </td>
             <td class="text-xs-center">{{ props.item.datecreate }}</td>
             <td class="text-xs-center">{{ props.item.dateupdate }}</td>
             <td class="text-xs-center justify-center">
               <router-link style="text-decoration: none;" :to="'/article/'+props.item.note+'/edit'">
-                <v-icon>edit</v-icon>
-              </router-link> ~  
-              <v-icon @click="openConfirmDialog('DELETE',props.item)">delete</v-icon>
+                <v-icon small>edit</v-icon>
+              </router-link>~
+              <v-icon small @click="openConfirmDialog('DELETE',props.item)">delete</v-icon>
             </td>
           </template>
           <template v-slot:no-data>
@@ -79,6 +85,12 @@ export default {
           class: "body-2 black--text text--darken-2"
         },
         {
+          text: "ความคิดเห็นเชิงบวก/ลบ",
+          align: "center",
+          sortable: false,
+          class: "body-2 black--text text--darken-2"
+        },
+        {
           text: "วันที่สร้าง",
           align: "center",
           sortable: false,
@@ -91,7 +103,7 @@ export default {
           class: "body-2 black--text text--darken-2"
         },
         {
-          text: "แก้ไข | ลบ",
+          text: "แก้ไข/ลบ",
           align: "center",
           sortable: false,
           class: "body-2 black--text text--darken-2"

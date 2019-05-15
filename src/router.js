@@ -22,17 +22,17 @@ export default new Router({
     },
     {
       path: "/article/:note/:mode",
-      name: "article_view",
+      name: "article_change",
       component: () => import("./views/Article.vue")
     },
     {
       path: "/article/create",
-      name: "article_view",
+      name: "article_create",
       component: () => import("./views/Article.vue")
     },
     {
       path: "/article/:note",
-      name: "article_create",
+      name: "article_view",
       component: () => import("./views/ArticleRead.vue")
     },
     {

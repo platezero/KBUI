@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <layout-header/>
+    <layout-header :dark="true"/>
     <v-content>
       <main-search-bar/>
       <v-container fluid grid-list-md px-1 m style="background-color:white;">

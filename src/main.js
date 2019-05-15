@@ -24,6 +24,13 @@ Vue.component("modal-loading", ModalLoading);
 import VueCookie from "vue-cookie";
 Vue.use(VueCookie);
 
+const moment = require("moment");
+require("moment/locale/th");
+
+Vue.use(require("vue-moment"), {
+  moment
+});
+
 new Vue({
   router,
   store,

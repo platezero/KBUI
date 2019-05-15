@@ -53,5 +53,24 @@ export default {
   addArticleViews(note) {
     var url = BASE_URL + "/api/v1/article/feedback/views/" + note;
     return axios.put(url);
+  },
+  getArticleFeedback(note) {
+    var url = BASE_URL + "/api/v1/article/feedback/?note=" + note;
+    return axios.get(url);
+  },
+  addArticleFeedback(note, type, comment) {
+    var url = BASE_URL + "/api/v1/article/feedback";
+    var requestBody = {
+      note: note,
+      type: type,
+      comment: comment
+    };
+    var config = {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    };
+    var querystring = require("querystring");
+    return axios.post(url, querystring.stringify(requestBody), config);
   }
 };

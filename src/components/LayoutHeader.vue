@@ -1,10 +1,17 @@
 <template>
   <div>
-    <v-toolbar color="black" dark fixed app>
+    <v-toolbar
+      :dark="dark"
+      :color="dark?'rgba(0, 0, 0, 0.85)':'rgba(255, 255, 255, 0.95)'"
+      fixed
+      app
+    >
       <v-btn icon @click="redirect('/')">
         <img style="width:32px;" src="@/assets/exat_logo.png" alt="Vuetify">
       </v-btn>
-      <v-toolbar-title @click="redirect('/')" style="cursor: pointer;">{{ toolbarTitle }}</v-toolbar-title>
+      <v-toolbar-title @click="redirect('/')" style="cursor: pointer;">
+        <div v-bind:class="[dark ? 'font-weight-regular' : 'font-weight-light']">{{ toolbarTitle }}</div>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn color="success" @click="redirect('/article/create')">+ นำเสนอบทความ</v-btn>
       <!-- <v-btn icon large>
@@ -20,10 +27,9 @@
         <v-list :dense="true">
           <template v-for="(item, index) in items">
             <v-list-tile v-if="item.action" :key="item.title" @click="redirect(item.url)">
-              <v-list-tile-action>
+              <v-list-tile-avatar>
                 <v-icon>{{ item.action }}</v-icon>
-              </v-list-tile-action>
-
+              </v-list-tile-avatar>
               <v-list-tile-content>
                 <v-list-tile-title class="body-2">{{ item.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -43,6 +49,9 @@
 import ServiceSecurity from "@/services/ServiceSecurity";
 
 export default {
+  props: {
+    dark: { type: Boolean, default: false }
+  },
   data() {
     return {
       isAlreadyLogin: false,
@@ -88,7 +97,7 @@ export default {
         case "xs":
           return "EXAT KB";
         case "sm":
-          return "EXAT KB";
+          return "EXAT Knowledge Based System";
         default:
           return "EXAT Knowledge Based System";
       }

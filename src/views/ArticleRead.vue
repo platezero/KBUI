@@ -3,80 +3,94 @@
     <layout-header/>
     <v-content>
       <v-container grid-list-md>
-        <v-layout row wrap>
-          <v-flex xs12 md3>
-            <v-text-field label="โน๊ต" outline readonly v-model="article.jodit.note"></v-text-field>
+        <v-layout align-start justify-center row fill-height wrap>
+          <v-flex class="mt-3 mb-3" xs12 md9>
+            <div class="display-1">{{ article.jodit.title }}</div>
           </v-flex>
-          <v-flex xs10 md8>
-            <v-text-field label="บทความ" outline v-model="article.jodit.title"></v-text-field>
+          <v-flex class="mb-4" xs12 md9>
+            <v-layout align-center justify-start row fill-height>
+              <v-avatar class="mr-2">
+                <img
+                  src="https://cdn-images-1.medium.com/fit/c/100/100/1*gI3P989qNfbrg2hfUKFw_Q.jpeg"
+                  alt="John"
+                >
+              </v-avatar>
+              <v-flex xs11>
+                <v-layout align-start justify-center column fill-height>
+                  <v-flex xs6 mb-0 pb-0>
+                    <div class="font-weight-medium body-2">{{ article.jodit.usercreate }}</div>
+                  </v-flex>
+                  <v-flex xs6 mt-0 pt-0>
+                    <div class="grey--text text--darken-2">
+                      {{ [ '15/05/62', "DD/MM/YY" ] | moment("d MMM YY") }}&nbsp; - &nbsp;
+                      <v-icon small alt="จำนวนคนดู">visibility</v-icon>
+                      {{ article.jodit.views }}
+                    </div>
+                  </v-flex>
+                </v-layout>
+              </v-flex>
+            </v-layout>
           </v-flex>
-          <v-flex xs2 md1>
-            <router-link :to="'/article/'+article.jodit.note+'/edit'">
-              <v-btn dark small fab color="primary">
-                <v-icon dark>edit</v-icon>
-              </v-btn>
-            </router-link>
-          </v-flex>
-          <v-flex xs12 v-if="article.jodit.symtom.trim()!= ''">
-            <div class="title text-lg-left mb-2">ปัญหา/อาการ</div>
+          <v-flex xs12 md9 v-if="article.jodit.symtom.trim()!= ''">
+            <div class="headline text-lg-left mb-2">ปัญหา/อาการ</div>
             <v-divider></v-divider>
           </v-flex>
-          <v-flex xs12>
-            <div v-html="article.jodit.symtom" class="mb-2"></div>
+          <v-flex xs12 md9 class="mb-4" v-if="article.jodit.symtom.trim()!= ''">
+            <div v-html="article.jodit.symtom"></div>
           </v-flex>
-          <v-flex xs12 v-if="article.jodit.purpose.trim()!= ''">
-            <div class="title text-lg-left mb-2">จุดประสงค์</div>
+          <v-flex xs12 md9 v-if="article.jodit.purpose.trim()!= ''">
+            <div class="headline text-lg-left mb-2">จุดประสงค์</div>
             <v-divider></v-divider>
           </v-flex>
-          <v-flex xs12>
+          <v-flex xs12 md9 class="mb-4" v-if="article.jodit.purpose.trim()!= ''">
             <div v-html="article.jodit.purpose" class="mb-2"></div>
           </v-flex>
-          <v-flex xs12 v-if="article.jodit.environment.trim()!= ''">
+          <v-flex xs12 md9 v-if="article.jodit.environment.trim()!= ''">
             <div class="title text-lg-left mb-2">สภาพแวดล้อม</div>
             <v-divider></v-divider>
           </v-flex>
-          <v-flex xs12>
+          <v-flex xs12 md9 class="mb-4" v-if="article.jodit.environment.trim()!= ''">
             <div v-html="article.jodit.environment" class="mb-2"></div>
           </v-flex>
-          <v-flex xs12 v-if="article.jodit.reproducing.trim()!= ''">
+          <v-flex xs12 md9 v-if="article.jodit.reproducing.trim()!= ''">
             <div class="title text-lg-left mb-2">การทำซ้ำ</div>
             <v-divider></v-divider>
           </v-flex>
-          <v-flex xs12>
+          <v-flex xs12 md9 class="mb-4" v-if="article.jodit.reproducing.trim()!= ''">
             <div v-html="article.jodit.reproducing" class="mb-2"></div>
           </v-flex>
-          <v-flex xs12 v-if="article.jodit.cause.trim()!= ''">
+          <v-flex xs12 md9 v-if="article.jodit.cause.trim()!= ''">
             <div class="title text-lg-left mb-2">สาเหตุ</div>
             <v-divider></v-divider>
           </v-flex>
-          <v-flex xs12>
+          <v-flex xs12 md9 class="mb-4" v-if="article.jodit.cause.trim()!= ''">
             <div v-html="article.jodit.cause" class="mb-2"></div>
           </v-flex>
-          <v-flex xs12 v-if="article.jodit.causeRoot.trim()!= ''">
+          <v-flex xs12 md9 v-if="article.jodit.causeRoot.trim()!= ''">
             <div class="title text-lg-left mb-2">สาเหตุเชิงลึก</div>
             <v-divider></v-divider>
           </v-flex>
-          <v-flex xs12>
+          <v-flex xs12 md9 class="mb-4" v-if="article.jodit.causeRoot.trim()!= ''">
             <div v-html="article.jodit.causeRoot" class="mb-2"></div>
           </v-flex>
-          <v-flex xs12 v-if="article.jodit.solution.trim()!= ''">
+          <v-flex xs12 md9 v-if="article.jodit.solution.trim()!= ''">
             <div class="title text-lg-left mb-2">วิธีแก้ปัญหา</div>
             <v-divider></v-divider>
           </v-flex>
-          <v-flex xs12>
+          <v-flex xs12 md9 class="mb-4" v-if="article.jodit.solution.trim()!= ''">
             <div v-html="article.jodit.solution" class="mb-2"></div>
           </v-flex>
-          <v-flex xs12 v-if="article.jodit.resourcesRelated.trim()!= ''">
+          <v-flex xs12 md9 v-if="article.jodit.resourcesRelated.trim()!= ''">
             <div class="title text-lg-left mb-2">เนื้อหา/แหล่งอ้างอิง ที่เกี่ยวข้อง</div>
             <v-divider></v-divider>
           </v-flex>
-          <v-flex xs12>
+          <v-flex xs12 md9 v-if="article.jodit.resourcesRelated.trim()!= ''">
             <div v-html="article.jodit.resourcesRelated"></div>
           </v-flex>
         </v-layout>
       </v-container>
     </v-content>
-    <layout-footer-feedback/>
+    <layout-footer-feedback ref="feedback"/>
     <modal-loading ref="loading"></modal-loading>
     <modal-alert ref="alert"></modal-alert>
   </div>
@@ -131,6 +145,10 @@ export default {
       .then(response => {
         this.article.jodit = response.data.data;
         ServiceApi.addArticleViews(note);
+        refs.feedback.initial(
+          note,
+          this.article.jodit.usercreate.split(" : ")[0]
+        );
       })
       .catch(error => {
         refs.alert.open("เกิดข้อผิดพลาด", error.response.data.message);

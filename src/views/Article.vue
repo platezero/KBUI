@@ -125,13 +125,7 @@
               <modal-loading ref="loading"></modal-loading>
               <modal-alert ref="alert"></modal-alert>
               <modal-confirm ref="confirm" v-on:ok="confirmSaveArticle"></modal-confirm>
-              <v-btn
-                v-if="$route.params.mode=='edit' || $route.params.note=='create'"
-                color="primary"
-                dark
-                block
-                @click.stop="saveArticle"
-              >บันทึก</v-btn>
+              <v-btn large color="primary" dark block @click.stop="saveArticle">บันทึก</v-btn>
             </v-flex>
           </v-layout>
         </v-layout>
@@ -286,6 +280,7 @@ export default {
     assignPlainTextJodit() {
       // alert(this.article.quill.title);
       // alert(this.$refs.purpose.quill.getText());
+      this.article.plain.note = this.article.jodit.note;
       this.article.plain.title = this.article.jodit.title;
       this.article.plain.purpose = this.$refs.purpose.getPlainText();
       this.article.plain.symtom = this.$refs.symtom.getPlainText();

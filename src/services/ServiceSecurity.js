@@ -1,22 +1,24 @@
 import axios from "axios";
 import router from "../router";
 
+axios.defaults.withCredentials = true;
+
 var BASE_URL = process.env.VUE_APP_API_KBS_ENDPOINT;
 
 export default {
   login(empid, password) {
     var url =
       BASE_URL + "/api/v1/sso/login?u_id=" + empid + "&u_pass=" + password;
-    return axios.get(url, { withCredentials: true });
+    return axios.get(url);
   },
   logout() {
     var url = BASE_URL + "/api/v1/sso/logout";
-    return axios.get(url, { withCredentials: true });
+    return axios.get(url);
   },
   checkLoginAndRedirect(callBackUrl) {
     var url = BASE_URL + "/api/v1/sso/check";
     return axios
-      .get(url, { withCredentials: true })
+      .get(url)
       .then(function(response) {
         // console.log(response);
       })
@@ -31,6 +33,6 @@ export default {
   },
   checkLogin() {
     var url = BASE_URL + "/api/v1/sso/check";
-    return axios.get(url, { withCredentials: true });
+    return axios.get(url);
   }
 };
