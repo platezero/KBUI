@@ -46,6 +46,11 @@ export default new Router({
       component: () => import("./components/QuillTemplate.vue")
     },
     {
+      path: "/developer",
+      name: "developer",
+      component: () => import("./views/Developer.vue")
+    },
+    {
       path: "/login",
       name: "login",
       component: () => import("./views/Login.vue")

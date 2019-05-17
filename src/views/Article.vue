@@ -293,6 +293,8 @@ export default {
     }
   },
   mounted() {
+    ServiceSecurity.checkLoginAndRedirect(this.$route.path);
+
     if (this.$route.params.note) {
       if (this.$route.params.note == "create") {
         ServiceSecurity.checkLoginAndRedirect(this.$route.path);

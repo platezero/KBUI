@@ -91,7 +91,7 @@ export default {
           class: "body-2 black--text text--darken-2"
         },
         {
-          text: "วันที่สร้าง",
+          text: "วันที่นำเสนอ",
           align: "center",
           sortable: false,
           class: "body-2 black--text text--darken-2"

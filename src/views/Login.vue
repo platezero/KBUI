@@ -11,7 +11,7 @@
           <v-flex xs12 style="background-color:#ffffff0f;">
             <v-card class="elevation-20"></v-card>
             <v-layout align-center justify-center>
-              <v-flex xs10 sm7 md4>
+              <v-flex xs10 sm7 md4 lg3>
                 <v-card class="elevation-20">
                   <v-toolbar dark color="primary">
                     <v-toolbar-title>EXAT Knowledge Based System</v-toolbar-title>

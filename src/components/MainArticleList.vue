@@ -1,15 +1,17 @@
 <template>
   <v-list two-line>
+    <v-progress-linear
+      transition="fade-transition"
+      v-if="loading"
+      :indeterminate="loading"
+      :key="header+'-progress'"
+    ></v-progress-linear>
     <template v-for="(item, index) in items">
-      <v-subheader
-        v-if="item.header"
-        :key="index+'-label'"
-        class="subheading"
-      >{{ header }}</v-subheader>
+      <v-subheader v-if="item.header" :key="index+'-label'" class="subheading">{{ header }}</v-subheader>
 
       <v-divider v-else-if="item.divider" :inset="item.inset" :key="index"></v-divider>
 
-      <v-list-tile v-else :key="item.title+'-'+index" avatar @click>
+      <v-list-tile v-else :key="item.title+'-'+index" avatar @click="redirect('/article/'+item.note)">
         <v-list-tile-avatar>
           <img :src="item.avatar">
         </v-list-tile-avatar>
@@ -25,6 +27,7 @@
 
 <script>
 import ServiceApi from "@/services/ServiceApi";
+import ServiceUtil from "@/services/ServiceUtil";
 
 export default {
   props: {
@@ -33,8 +36,8 @@ export default {
   },
   data() {
     return {
+      loading: false,
       items: [
-        { header: this.header }
         // {
         //   avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
         //   title: "Brunch this weekend?",
@@ -69,26 +72,28 @@ export default {
     }
   },
   mounted() {
+    var self = this;
+    self.loading = true;
+
     var loadFunction = response => {
+      self.loading = false;
+
+      this.items.push({ header: this.header });
+
       response.data.data.forEach((element, i) => {
         var title = element.title;
         var usercCreateId = element.usercreate.split(":")[0].trim();
         var usercCreateName = element.usercreate.split(":")[1].trim();
 
         var note = element.note;
-        var avatarUrl =
-          "http://172.20.1.58/SecurityManager/images/employees/" +
-          usercCreateId.substr(1, 2) +
-          "/" +
-          usercCreateId +
-          ".jpg";
+        var avatarUrl = ServiceUtil.getAvatarUrl(usercCreateId);
 
         this.items.push({
           note: note,
           avatar: avatarUrl,
           title: title.replace("P", ""),
           subtitle:
-            "<span class='text--primary'>KB Note : " +
+            "<span class='text--primary'>Note : " +
             note +
             "</span> &mdash; " +
             usercCreateName
@@ -102,6 +107,10 @@ export default {
       });
     } else if (this.type == "LASTED") {
       ServiceApi.listArticleLasted(5).then(response => {
+        loadFunction(response);
+      });
+    } else if (this.type == "POPULAR") {
+      ServiceApi.listArticlePopular(5).then(response => {
         loadFunction(response);
       });
     }

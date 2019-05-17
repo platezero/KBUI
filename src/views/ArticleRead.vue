@@ -7,13 +7,10 @@
           <v-flex class="mt-3 mb-3" xs12 md9>
             <div class="display-1">{{ article.jodit.title }}</div>
           </v-flex>
-          <v-flex v-if="this.article.jodit.usercreate" class="mb-4" xs12 md9>
+          <v-flex v-if="this.article.jodit.usercreate" class="mb-5" xs12 md9>
             <v-layout align-center justify-start row fill-height>
-              <v-avatar class="mr-2">
-                <img
-                  :src="'http://172.20.1.58/SecurityManager/images/employees/' 
-                  +this.article.jodit.usercreate.split(' : ')[0].substr(1, 2) + '/' + this.article.jodit.usercreate.split(' : ')[0] +'.jpg'"
-                >
+              <v-avatar class="mr-2 ml-2">
+                <img :src="article.avatarUrl">
               </v-avatar>
               <v-flex xs11>
                 <v-layout align-start justify-center column fill-height>
@@ -33,53 +30,53 @@
               </v-flex>
             </v-layout>
           </v-flex>
-          <v-flex xs12 md9 v-if="article.jodit.symtom.trim()!= ''">
+          <v-flex xs12 md9 mb-3 v-if="article.jodit.symtom.trim()!= ''">
             <div class="title text-lg-left mb-2">ปัญหา/อาการ</div>
             <v-divider></v-divider>
           </v-flex>
-          <v-flex xs12 md9 class="mb-4" v-if="article.jodit.symtom.trim()!= ''">
+          <v-flex xs12 md9 mb-3 class="mb-4" v-if="article.jodit.symtom.trim()!= ''">
             <div v-html="article.jodit.symtom"></div>
           </v-flex>
-          <v-flex xs12 md9 v-if="article.jodit.purpose.trim()!= ''">
+          <v-flex xs12 md9 mb-3 v-if="article.jodit.purpose.trim()!= ''">
             <div class="title text-lg-left mb-2">จุดประสงค์</div>
             <v-divider></v-divider>
           </v-flex>
-          <v-flex xs12 md9 class="mb-4" v-if="article.jodit.purpose.trim()!= ''">
+          <v-flex xs12 md9 mb-3 class="mb-4" v-if="article.jodit.purpose.trim()!= ''">
             <div v-html="article.jodit.purpose" class="mb-2"></div>
           </v-flex>
-          <v-flex xs12 md9 v-if="article.jodit.environment.trim()!= ''">
+          <v-flex xs12 md9 mb-3 v-if="article.jodit.environment.trim()!= ''">
             <div class="title text-lg-left mb-2">สภาพแวดล้อม</div>
             <v-divider></v-divider>
           </v-flex>
-          <v-flex xs12 md9 class="mb-4" v-if="article.jodit.environment.trim()!= ''">
+          <v-flex xs12 md9 mb-3 class="mb-4" v-if="article.jodit.environment.trim()!= ''">
             <div v-html="article.jodit.environment" class="mb-2"></div>
           </v-flex>
-          <v-flex xs12 md9 v-if="article.jodit.reproducing.trim()!= ''">
+          <v-flex xs12 md9 mb-3 v-if="article.jodit.reproducing.trim()!= ''">
             <div class="title text-lg-left mb-2">การทำซ้ำ</div>
             <v-divider></v-divider>
           </v-flex>
-          <v-flex xs12 md9 class="mb-4" v-if="article.jodit.reproducing.trim()!= ''">
+          <v-flex xs12 md9 mb-3 class="mb-4" v-if="article.jodit.reproducing.trim()!= ''">
             <div v-html="article.jodit.reproducing" class="mb-2"></div>
           </v-flex>
-          <v-flex xs12 md9 v-if="article.jodit.cause.trim()!= ''">
+          <v-flex xs12 md9 mb-3 v-if="article.jodit.cause.trim()!= ''">
             <div class="title text-lg-left mb-2">สาเหตุ</div>
             <v-divider></v-divider>
           </v-flex>
-          <v-flex xs12 md9 class="mb-4" v-if="article.jodit.cause.trim()!= ''">
+          <v-flex xs12 md9 mb-3 class="mb-4" v-if="article.jodit.cause.trim()!= ''">
             <div v-html="article.jodit.cause" class="mb-2"></div>
           </v-flex>
-          <v-flex xs12 md9 v-if="article.jodit.causeRoot.trim()!= ''">
+          <v-flex xs12 md9 mb-3 v-if="article.jodit.causeRoot.trim()!= ''">
             <div class="title text-lg-left mb-2">สาเหตุเชิงลึก</div>
             <v-divider></v-divider>
           </v-flex>
-          <v-flex xs12 md9 class="mb-4" v-if="article.jodit.causeRoot.trim()!= ''">
+          <v-flex xs12 md9 mb-3 class="mb-4" v-if="article.jodit.causeRoot.trim()!= ''">
             <div v-html="article.jodit.causeRoot" class="mb-2"></div>
           </v-flex>
-          <v-flex xs12 md9 v-if="article.jodit.solution.trim()!= ''">
+          <v-flex xs12 md9 mb-3 v-if="article.jodit.solution.trim()!= ''">
             <div class="title text-lg-left mb-2">วิธีแก้ปัญหา</div>
             <v-divider></v-divider>
           </v-flex>
-          <v-flex xs12 md9 class="mb-4" v-if="article.jodit.solution.trim()!= ''">
+          <v-flex xs12 md9 mb-3 class="mb-4" v-if="article.jodit.solution.trim()!= ''">
             <div v-html="article.jodit.solution" class="mb-2"></div>
           </v-flex>
           <v-flex xs12 md9 v-if="article.jodit.resourcesRelated.trim()!= ''">
@@ -100,6 +97,7 @@
 
  <script>
 import ServiceApi from "@/services/ServiceApi";
+import ServiceUtil from "@/services/ServiceUtil";
 import ServiceSecurity from "@/services/ServiceSecurity";
 import LayoutFooterFeedback from "@/components/LayoutFooterFeedback";
 
@@ -107,6 +105,7 @@ export default {
   data() {
     return {
       article: {
+        avatarUrl: "",
         plain: {
           note: "",
           title: "",
@@ -136,6 +135,7 @@ export default {
   },
   methods: {},
   mounted() {
+    var self = this;
     var note = this.$route.params.note;
     var refs = this.$refs;
     note = note.split("P").join("");
@@ -145,11 +145,14 @@ export default {
 
     ServiceApi.getArticleByNote(note)
       .then(response => {
-        this.article.jodit = response.data.data;
+        self.article.jodit = response.data.data;
         ServiceApi.addArticleViews(note);
         refs.feedback.initial(
           note,
-          this.article.jodit.usercreate.split(" : ")[0]
+          self.article.jodit.usercreate.split(" : ")[0]
+        );
+        self.article.avatarUrl = ServiceUtil.getAvatarUrl(
+          self.article.jodit.usercreate.split(" : ")[0]
         );
       })
       .catch(error => {
@@ -173,5 +176,9 @@ export default {
 };
 </script>
 
-<style>
+<style lang="css">
+/* ป้องกัน Toolbar เลื่อนขึ้นไปทับเมนู */
+.jodit_sticky > .jodit_toolbar {
+  z-index: 0;
+}
 </style>

@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import Jodit from "jodit";
-import "jodit/build/jodit.min.css";
 export default {
   name: "JoditVue",
   props: {

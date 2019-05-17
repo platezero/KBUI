@@ -13,12 +13,12 @@
         <div v-bind:class="[dark ? 'font-weight-regular' : 'font-weight-light']">{{ toolbarTitle }}</div>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="success" @click="redirect('/article/create')">+ นำเสนอบทความ</v-btn>
+      <v-btn color="success" @click="redirect('/article/create')">{{ toolbarAddArticleText }}</v-btn>
       <!-- <v-btn icon large>
         <v-icon>notifications</v-icon>
       </v-btn>-->
 
-      <v-menu v-if="isAlreadyLogin" offset-y>
+      <v-menu v-if="isAlreadyLogin" offset-y transition="slide-y-transition">
         <template v-slot:activator="{ on }">
           <v-btn icon large v-on="on">
             <v-icon>account_circle</v-icon>
@@ -100,6 +100,16 @@ export default {
           return "EXAT Knowledge Based System";
         default:
           return "EXAT Knowledge Based System";
+      }
+    },
+    toolbarAddArticleText() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return "+ บทความ";
+        case "sm":
+          return "+ บทความ";
+        default:
+          return "+ นำเสนอบทความ";
       }
     }
   }

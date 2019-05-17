@@ -39,6 +39,7 @@
 
 <script>
 import ServiceApi from "@/services/ServiceApi";
+import ServiceUtil from "@/services/ServiceUtil";
 
 export default {
   data() {
@@ -82,12 +83,7 @@ export default {
         var note = element.note;
         var title = runningNo + ". " + element.title;
         var userCreate = element.usercreate.split(" : ")[1];
-        var avatarUrl =
-          "http://172.20.1.58/SecurityManager/images/employees/" +
-          empid.substr(1, 2) +
-          "/" +
-          empid +
-          ".jpg";
+        var avatarUrl = ServiceUtil.getAvatarUrl(empid);
         var BASE_URL = process.env.VUE_APP_API_KB_ENDPOINT;
         var url = BASE_URL + "/#/article/" + note;
 

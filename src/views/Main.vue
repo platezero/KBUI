@@ -5,13 +5,13 @@
       <main-search-bar/>
       <v-container fluid grid-list-md px-1 m style="background-color:white;">
         <v-layout align-start row wrap justify-center>
-          <v-flex xs12 md5>
+          <v-flex xs12 sm5 md5 lg3>
             <main-article-list :header="'บทความปักหมุด'" :type="'PIN'"/>
           </v-flex>
-          <!-- <v-flex xs4>
-            <main-article-list :header="'Trending Article'" :type="'TREND'"/>
-          </v-flex>-->
-          <v-flex xs12 md5>
+          <v-flex xs12 sm5 md5 lg3>
+            <main-article-list :header="'บทความที่ได้รับความนิยม'" :type="'POPULAR'"/>
+          </v-flex>
+          <v-flex xs12 sm5 md5 lg3 v-if="isShowLastedArticle">
             <main-article-list :header="'บทความล่าสุด'" :type="'LASTED'"/>
           </v-flex>
         </v-layout>
@@ -66,6 +66,22 @@ export default {
       ]
       //
     };
+  },
+  computed: {
+    isShowLastedArticle() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return true;
+        case "sm":
+          return false;
+        case "md":
+          return false;
+        case "lg":
+          return true;
+        case "xl":
+          return true;
+      }
+    }
   }
 };
 </script>

@@ -38,6 +38,10 @@ export default {
     var url = BASE_URL + "/api/v1/article/listby/pin/top/" + top;
     return axios.get(url);
   },
+  listArticlePopular(top) {
+    var url = BASE_URL + "/api/v1/article/listby/popular/top/" + top;
+    return axios.get(url);
+  },
   listArticleTrend(top) {
     var url = BASE_URL + "/api/v1/article/listby/trend/top/" + top;
     return axios.get(url);

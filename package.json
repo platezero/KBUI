@@ -9,7 +9,6 @@
   "dependencies": {
     "axios": "^0.18.0",
     "fsevents": "^2.0.6",
-    "jodit": "^3.2.44",
     "jsrsasign": "^8.0.12",
     "quill-image-drop-module": "^1.0.3",
     "vue": "^2.6.10",
