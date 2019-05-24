@@ -22,6 +22,10 @@ export default {
     var url = BASE_URL + "/api/v1/article/listby?empid=" + empid;
     return axios.get(url);
   },
+  listArticleOwned() {
+    var url = BASE_URL + "/api/v1/article/list/owned";
+    return axios.get(url);
+  },
   listArticleByNote(note) {
     var url = BASE_URL + "/api/v1/article/listby/note/" + note;
     return axios.get(url);

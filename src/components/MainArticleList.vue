@@ -11,9 +11,18 @@
 
       <v-divider v-else-if="item.divider" :inset="item.inset" :key="index"></v-divider>
 
-      <v-list-tile v-else :key="item.title+'-'+index" avatar @click="redirect('/article/'+item.note)">
+      <v-list-tile
+        v-else
+        :key="item.title+'-'+index"
+        avatar
+        @click="redirect('/article/'+item.note)"
+      >
         <v-list-tile-avatar>
-          <img :src="item.avatar">
+          <img
+            :src="item.avatar"
+            alt="Image not found"
+            onerror="this.onerror=null;this.src='https://image.flaticon.com/icons/svg/1256/1256650.svg';"
+          >
         </v-list-tile-avatar>
 
         <v-list-tile-content @click="redirect('/article/'+item.note)">
@@ -85,13 +94,14 @@ export default {
         var usercCreateId = element.usercreate.split(":")[0].trim();
         var usercCreateName = element.usercreate.split(":")[1].trim();
 
-        var note = element.note;
+        var note = String(element.note);
+        var note = note.replace("P", "");
         var avatarUrl = ServiceUtil.getAvatarUrl(usercCreateId);
 
         this.items.push({
           note: note,
           avatar: avatarUrl,
-          title: title.replace("P", ""),
+          title: title,
           subtitle:
             "<span class='text--primary'>Note : " +
             note +

@@ -10,7 +10,11 @@
           <v-flex v-if="this.article.jodit.usercreate" class="mb-5" xs12 md9>
             <v-layout align-center justify-start row fill-height>
               <v-avatar class="mr-2 ml-2">
-                <img :src="article.avatarUrl">
+                <img
+                  :src="article.avatarUrl"
+                  alt="Image not found"
+                  onerror="this.onerror=null;this.src='https://image.flaticon.com/icons/svg/1256/1256650.svg';"
+                >
               </v-avatar>
               <v-flex xs11>
                 <v-layout align-start justify-center column fill-height>
@@ -21,7 +25,8 @@
                   </v-flex>
                   <v-flex xs6 mt-0 pt-0>
                     <div class="grey--text text--darken-2">
-                      {{ [ '15/05/62', "DD/MM/YY" ] | moment("d MMM YY") }}&nbsp; - &nbsp;
+                      {{ article.jodit.datecreate }} &nbsp; - &nbsp;
+                      <!-- {{ [ '15/05/2019', "DD/MM/YYYY" ] | moment("from", "now") }}&nbsp; - &nbsp; -->
                       <v-icon small alt="จำนวนคนดู">visibility</v-icon>
                       {{ article.jodit.views }}
                     </div>

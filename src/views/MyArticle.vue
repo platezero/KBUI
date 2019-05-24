@@ -125,13 +125,12 @@ export default {
     },
     loadArticleList() {
       this.$refs.loading.open();
-      ServiceApi.listArticleByEmpId(this.$cookie.get("kbs_empid"))
+      ServiceApi.listArticleOwned()
         .then(response => {
           this.$refs.loading.close();
           this.dataitems = response.data.data;
         })
         .catch(error => {
-          console.log(error.response);
           this.$refs.loading.close();
           try {
             this.$refs.alert.open(
@@ -142,11 +141,14 @@ export default {
         });
     },
     confirmDeleteArticle(reference) {
+      this.$refs.loading.open();
       ServiceApi.deleteArticleByNote(reference)
         .then(response => {
+          this.$refs.loading.close();
           this.loadArticleList();
         })
         .catch(error => {
+          this.$refs.loading.close();
           try {
             this.$refs.alert.open(
               "เกิดข้อผิดพลาด",

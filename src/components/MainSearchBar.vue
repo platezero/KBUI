@@ -1,7 +1,7 @@
 <template>
   <v-container
     fluid
-    style="height: 300px; background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('./assets/bridge.jpg')"
+    style="height: 300px; background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('/assets/image_background/19.jpg')"
   >
     <v-layout align-center justify-center row fill-height>
       <v-flex xs12 sm8 px-4 pt-4 pb-0 style="background: rgba(255,255,255,0.9);">

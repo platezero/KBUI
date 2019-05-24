@@ -7,7 +7,7 @@
       app
     >
       <v-btn icon @click="redirect('/')">
-        <img style="width:32px;" src="@/assets/exat_logo.png" alt="Vuetify">
+        <img style="width:32px;" :src="'/assets/exat_logo.png'" alt="Vuetify">
       </v-btn>
       <v-toolbar-title @click="redirect('/')" style="cursor: pointer;">
         <div v-bind:class="[dark ? 'font-weight-regular' : 'font-weight-light']">{{ toolbarTitle }}</div>

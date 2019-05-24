@@ -248,13 +248,11 @@ export default {
       this.assignPlainTextJodit();
       ServiceApi.saveArticle(this.article)
         .then(response => {
-          console.log(response);
           this.$refs.loading.close();
           this.$refs.alert.open("ผลลัพธ์การทำรายการ", response.data.message);
           self.article.jodit.note = response.data.data.note;
         })
         .catch(error => {
-          console.log(error.response);
           this.$refs.loading.close();
           try {
             this.$refs.alert.open(

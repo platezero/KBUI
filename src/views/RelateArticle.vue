@@ -21,7 +21,11 @@
 
             <v-list-tile v-else :key="item.title" avatar @click="openUrl(item.url)">
               <v-list-tile-avatar>
-                <img :src="item.avatar">
+                <img
+                  :src="item.avatar"
+                  alt="Image not found"
+                  onerror="this.onerror=null;this.src='https://image.flaticon.com/icons/svg/1256/1256650.svg';"
+                >
                 <!-- <div class="display-1">{{ index }}.</div> -->
               </v-list-tile-avatar>
 
@@ -85,7 +89,7 @@ export default {
         var userCreate = element.usercreate.split(" : ")[1];
         var avatarUrl = ServiceUtil.getAvatarUrl(empid);
         var BASE_URL = process.env.VUE_APP_API_KB_ENDPOINT;
-        var url = BASE_URL + "/#/article/" + note;
+        var url = process.env.BASE_URL + "article/" + note;
 
         this.items.push({
           note: note,
