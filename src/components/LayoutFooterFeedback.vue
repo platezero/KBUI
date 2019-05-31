@@ -96,6 +96,8 @@ export default {
   },
   methods: {
     sendFeedback(feedbackType) {
+      ServiceSecurity.checkLoginAndRedirect(this.$route.fullPath);
+
       if (feedbackType == "UL") {
         if (this.feedback.type == feedbackType) {
           this.submitFeedback(feedbackType);
@@ -107,8 +109,6 @@ export default {
       }
     },
     submitFeedback(feedbackType) {
-      ServiceSecurity.checkLoginAndRedirect(this.$route.fullPath);
-
       var self = this;
       this.setBlankFeedback();
       this.feedback.type = feedbackType;

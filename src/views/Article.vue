@@ -228,17 +228,14 @@ export default {
   //   next();
   // },
   methods: {
-    getPlainText() {
-      alert(this.$refs.test1.getPlainText());
-    },
     // focusEditor() {
     //   console.log(this.$refs.qeditor1.quill.getText());
     //   this.$refs.qeditor1.quill.focus();
     // },
     saveArticle() {
       this.$refs.confirm.open(
-        "ยืนยันการบันทึกข้อมูล",
-        "ตรวจสอบข้อมูลทุกครั้งก่อนการบันทึกข้อมูล"
+        "ยืนยันการบันทึกบทความ",
+        "กรุณาตรวจสอบข้อมูลทุกครั้งก่อนการบันทึกบทความ"
       );
     },
     confirmSaveArticle() {
@@ -278,7 +275,8 @@ export default {
     assignPlainTextJodit() {
       // alert(this.article.quill.title);
       // alert(this.$refs.purpose.quill.getText());
-      this.article.plain.note = this.article.jodit.note;
+      this.article.plain.note =
+        this.article.jodit.note == "" ? "" : this.article.jodit.note + "P";
       this.article.plain.title = this.article.jodit.title;
       this.article.plain.purpose = this.$refs.purpose.getPlainText();
       this.article.plain.symtom = this.$refs.symtom.getPlainText();

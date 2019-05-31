@@ -2,7 +2,7 @@
   <div>
     <v-toolbar
       :dark="dark"
-      :color="dark?'rgba(0, 0, 0, 0.85)':'rgba(255, 255, 255, 0.95)'"
+      :color="dark?'#383838':'rgba(255, 255, 255, 0.95)'"
       fixed
       app
     >

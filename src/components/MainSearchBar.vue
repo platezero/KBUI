@@ -65,7 +65,7 @@ export default {
       ServiceApi.listArticleByQuery(q)
         .then(response => {
           response.data.data.forEach(element => {
-            self.items.push(element.note + " - " + element.title);
+            self.items.push(element.note.replace("P", "") + " - " + element.title);
           });
         })
         .finally(() => {
