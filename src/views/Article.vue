@@ -121,8 +121,6 @@
           </v-flex>
           <v-layout row justify-center>
             <v-flex xs4>
-              <!-- <modal-confirm ref="modalฟสำพะ" v-on:ok="confirmSaveArticle"></modal-confirm> -->
-              <modal-loading ref="loading"></modal-loading>
               <modal-alert ref="alert"></modal-alert>
               <modal-confirm ref="confirm" v-on:ok="confirmSaveArticle"></modal-confirm>
               <v-btn large color="primary" dark block @click.stop="saveArticle">บันทึก</v-btn>
@@ -135,6 +133,7 @@
 </template>
 
  <script>
+import { mapActions } from "vuex";
 import LayoutFooterFeedback from "@/components/LayoutFooterFeedback";
 // import { VueEditor, Quill } from "vue2-editor";
 // import { ImageDrop } from "quill-image-drop-module";
@@ -228,6 +227,7 @@ export default {
   //   next();
   // },
   methods: {
+    ...mapActions(["showLoading", "hideLoading"]),
     // focusEditor() {
     //   console.log(this.$refs.qeditor1.quill.getText());
     //   this.$refs.qeditor1.quill.focus();
@@ -240,23 +240,24 @@ export default {
     },
     confirmSaveArticle() {
       var self = this;
-      this.$refs.loading.open();
+      self.showLoading();
       // console.log(this.$refs.qeditor1.quill.getText());
       this.assignPlainTextJodit();
       ServiceApi.saveArticle(this.article)
         .then(response => {
-          this.$refs.loading.close();
           this.$refs.alert.open("ผลลัพธ์การทำรายการ", response.data.message);
           self.article.jodit.note = response.data.data.note;
         })
         .catch(error => {
-          this.$refs.loading.close();
           try {
             this.$refs.alert.open(
               "เกิดข้อผิดพลาด",
               error.response.data.message
             );
           } catch (e) {}
+        })
+        .finally(function() {
+          self.hideLoading();
         });
     },
     assignPlainTextQuill() {
@@ -289,6 +290,7 @@ export default {
     }
   },
   mounted() {
+    var self = this;
     ServiceSecurity.checkLoginAndRedirect(this.$route.path);
 
     if (this.$route.params.note) {
@@ -300,22 +302,22 @@ export default {
         note = note.split("P").join("");
 
         var mode = this.$route.params.mode;
-        this.$refs.loading.open();
+        self.showLoading();
 
         ServiceApi.getArticleByNote(note)
           .then(response => {
-            this.$refs.loading.close();
             this.article.jodit = response.data.data;
             ServiceApi.addArticleViews(note);
           })
           .catch(error => {
-            this.$refs.loading.close();
             this.$refs.alert.open(
               "เกิดข้อผิดพลาด",
               error.response.data.message
             );
           })
-          .finally(function() {});
+          .finally(() => {
+            self.hideLoading();
+          });
       }
     }
   },

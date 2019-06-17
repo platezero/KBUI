@@ -24,8 +24,14 @@
             hide-details
             label="Enter keywords or KM Note"
             solo
+            v-on:keyup.enter="$router.push('/search/'+queryText)"
           >
-            <v-btn color="info" slot="append" class="hidden-xs-only">Search</v-btn>
+            <v-btn
+              color="info"
+              slot="append"
+              class="hidden-xs-only"
+              @click="$router.push('/search/'+queryText)"
+            >{{ searchBtnText }}</v-btn>
           </v-autocomplete>
           <!-- <v-text-field solo placeholder="Enter keywords or KM Note">
             <v-btn color="info" slot="append" class="hidden-xs-only">Search</v-btn>
@@ -57,6 +63,22 @@ export default {
       this.$router.push("/article/" + note);
     }
   },
+  computed: {
+    searchBtnText() {
+      if (this.search == "" || this.search == null) {
+        return "Browse Article";
+      } else {
+        return "Search";
+      }
+    },
+    queryText() {
+      if (this.search == "" || this.search == null) {
+        return "all";
+      } else {
+        return this.search;
+      }
+    }
+  },
   methods: {
     querySelections(q) {
       this.loading = true;
@@ -65,7 +87,9 @@ export default {
       ServiceApi.listArticleByQuery(q)
         .then(response => {
           response.data.data.forEach(element => {
-            self.items.push(element.note.replace("P", "") + " - " + element.title);
+            self.items.push(
+              element.note.replace("P", "") + " - " + element.title
+            );
           });
         })
         .finally(() => {

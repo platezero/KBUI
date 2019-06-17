@@ -80,8 +80,6 @@
         </v-layout>
       </v-container>
     </v-content>-->
-
-    <modal-loading ref="loading"></modal-loading>
     <modal-alert ref="alert"></modal-alert>
   </v-app>
 </template>
@@ -99,7 +97,7 @@ export default {
   methods: {
     submit() {
       var self = this;
-      this.loading = true;
+      self.loading = true;
       var callbackUrl = this.$route.query.callback;
       ServiceSecurity.login(this.empid, this.password)
         .then(response => {
@@ -110,7 +108,6 @@ export default {
           }
         })
         .catch(error => {
-          this.$refs.loading.close();
           this.$refs.alert.open("เกิดข้อผิดพลาด", error.response.data.message);
         })
         .finally(function() {

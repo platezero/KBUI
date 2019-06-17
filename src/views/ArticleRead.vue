@@ -95,12 +95,12 @@
       </v-container>
     </v-content>
     <layout-footer-feedback ref="feedback"/>
-    <modal-loading ref="loading"></modal-loading>
     <modal-alert ref="alert"></modal-alert>
   </div>
 </template>
 
  <script>
+import { mapActions } from "vuex";
 import ServiceApi from "@/services/ServiceApi";
 import ServiceUtil from "@/services/ServiceUtil";
 import ServiceSecurity from "@/services/ServiceSecurity";
@@ -138,7 +138,9 @@ export default {
       }
     };
   },
-  methods: {},
+  methods: {
+    ...mapActions(["showLoading", "hideLoading"])
+  },
   mounted() {
     var self = this;
     var note = this.$route.params.note;
@@ -146,7 +148,7 @@ export default {
     note = note.split("P").join("");
 
     var mode = this.$route.params.mode;
-    refs.loading.open();
+    self.showLoading();
 
     ServiceApi.getArticleByNote(note)
       .then(response => {
@@ -164,7 +166,7 @@ export default {
         refs.alert.open("เกิดข้อผิดพลาด", error.response.data.message);
       })
       .finally(function() {
-        refs.loading.close();
+        self.hideLoading();
       });
   },
   watch: {},

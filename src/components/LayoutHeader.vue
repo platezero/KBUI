@@ -1,11 +1,7 @@
 <template>
   <div>
-    <v-toolbar
-      :dark="dark"
-      :color="dark?'#383838':'rgba(255, 255, 255, 0.95)'"
-      fixed
-      app
-    >
+    <modal-loading/>
+    <v-toolbar :dark="dark" :color="dark?'#383838':'rgba(255, 255, 255, 0.95)'" fixed app>
       <v-btn icon @click="redirect('/')">
         <img style="width:32px;" :src="'/assets/exat_logo.png'" alt="Vuetify">
       </v-btn>
@@ -112,6 +108,7 @@ export default {
           return "+ นำเสนอบทความ";
       }
     }
-  }
+  },
+  components: {}
 };
 </script>

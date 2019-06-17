@@ -42,14 +42,14 @@ export default new Router({
       component: () => import("./views/MyArticle.vue")
     },
     {
-      path: "/quill",
-      name: "quill",
-      component: () => import("./components/QuillTemplate.vue")
-    },
-    {
       path: "/developer",
       name: "developer",
       component: () => import("./views/Developer.vue")
+    },
+    {
+      path: "/search/:query",
+      name: "search",
+      component: () => import("./views/Search.vue")
     },
     {
       path: "/login",

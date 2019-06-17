@@ -39,12 +39,12 @@
     </v-content>
     <layout-footer/>
     <modal-alert ref="alert"></modal-alert>
-    <modal-loading ref="loading"></modal-loading>
     <modal-confirm ref="confirm" v-on:ok="confirmDeleteArticle"></modal-confirm>
   </div>
 </template>
 
  <script>
+import { mapActions } from "vuex";
 import ServiceApi from "@/services/ServiceApi";
 import ServiceSecurity from "@/services/ServiceSecurity";
 export default {
@@ -113,6 +113,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["showLoading", "hideLoading"]),
     deleteItem(item) {},
     openConfirmDialog(type, item) {
       if (type == "DELETE") {
@@ -124,37 +125,41 @@ export default {
       }
     },
     loadArticleList() {
-      this.$refs.loading.open();
+      var self = this;
+      self.showLoading();
       ServiceApi.listArticleOwned()
         .then(response => {
-          this.$refs.loading.close();
           this.dataitems = response.data.data;
         })
         .catch(error => {
-          this.$refs.loading.close();
           try {
             this.$refs.alert.open(
               "เกิดข้อผิดพลาด",
               error.response.data.message
             );
           } catch (e) {}
+        })
+        .finally(() => {
+          self.hideLoading();
         });
     },
     confirmDeleteArticle(reference) {
-      this.$refs.loading.open();
+      var self = this;
+      self.showLoading();
       ServiceApi.deleteArticleByNote(reference)
         .then(response => {
-          this.$refs.loading.close();
           this.loadArticleList();
         })
         .catch(error => {
-          this.$refs.loading.close();
           try {
             this.$refs.alert.open(
               "เกิดข้อผิดพลาด",
               error.response.data.message
             );
           } catch (e) {}
+        })
+        .finally(() => {
+          self.hideLoading();
         });
     }
   },
